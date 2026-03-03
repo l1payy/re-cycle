@@ -33,8 +33,9 @@ Kenapa Teknologi Ini
 Panduan cepat untuk menjalankan project ini di local environment kamu.
 
 📥 1. Clone Repository
-git clone https://github.com/<username>/<nama-repo>.git
-cd <nama-repo>
+git clone https://github.com/l1payy/re-cycle
+cd folder repo
+
 📦 2. Install Dependencies
 
 npm install
