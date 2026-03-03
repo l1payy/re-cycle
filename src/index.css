@@ -1,0 +1,69 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply font-body;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.tilt-card {
+  transform-style: preserve-3d;
+  transform: perspective(800px);
+}
+
+.tilt-card-inner {
+  transform-style: preserve-3d;
+}
+
+.tilt-layer {
+  transform: translateZ(40px);
+}
+
+.mouse-light {
+  position: fixed;
+  pointer-events: none;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(148, 213, 178, 0.25), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+  mix-blend-mode: screen;
+  z-index: 10;
+}
+
+.mouse-light.visible {
+  opacity: 1;
+}
+
+.floating-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.floating-particles span {
+  position: absolute;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, rgba(148, 213, 178, 0.8), transparent 70%);
+  opacity: 0.3;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(40px);
+  }
+  to {
+    transform: translateY(-220px);
+  }
+}
+
+.wave-mask {
+  mask-image: radial-gradient(circle at 50% 20%, black 0, black 40%, transparent 75%);
+}
