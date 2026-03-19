@@ -720,3 +720,107 @@ function initChatOptions() {
   });
 }
 initChatOptions();
+
+// 9. Hero Parallax Effect
+const heroEarth = document.getElementById('hero-earth');
+const heroParticles = document.getElementById('hero-particles');
+const heroText = document.getElementById('hero-text');
+
+if (heroEarth || heroParticles || heroText) {
+  let targetScrollY = window.scrollY;
+  let currentScrollY = window.scrollY;
+
+  window.addEventListener('scroll', () => {
+    targetScrollY = window.scrollY;
+  }, { passive: true });
+
+  const parallaxLoop = () => {
+    // Only process if we are reasonably close to top to save CPU
+    if (targetScrollY < 1200) {
+      // Linear Interpolation (Lerp) for butter-smooth scrolling effect
+      currentScrollY += (targetScrollY - currentScrollY) * 0.08;
+
+      // Update transforms if there's a meaningful change (delta > 0.1px)
+      if (Math.abs(targetScrollY - currentScrollY) > 0.1) {
+        if (heroEarth) {
+          heroEarth.style.transform = `translateY(${currentScrollY * 0.15}px)`;
+        }
+        if (heroParticles) {
+          heroParticles.style.transform = `translateY(${currentScrollY * 0.3}px)`;
+        }
+        if (heroText) {
+          heroText.style.transform = `translateY(${currentScrollY * 0.05}px)`;
+        }
+      }
+    }
+    window.requestAnimationFrame(parallaxLoop);
+  };
+
+  // Start the render loop
+  parallaxLoop();
+}
+
+// 10. Hero Typing Effect
+const typeText1 = document.getElementById('type-text-1');
+const typeText2 = document.getElementById('type-text-2');
+const typeCursor = document.getElementById('type-cursor');
+
+if (typeText1 && typeText2 && typeCursor) {
+  const text1 = "Ubah Jejak Sampahmu Menjadi";
+  const text2 = "Cerita Baik Bumi";
+  
+  let i = 0;
+  let j = 0;
+  let isTypingText1 = true;
+  let blinkInterval;
+  
+  // Initially, put the cursor right after text 1
+  if (typeText1.nextSibling) {
+    typeText1.parentNode.insertBefore(typeCursor, typeText1.nextSibling);
+  } else {
+    typeText1.parentNode.appendChild(typeCursor);
+  }
+
+  function startBlinking() {
+    // Only blink after typing finishes
+    if (blinkInterval) clearInterval(blinkInterval);
+    blinkInterval = setInterval(() => {
+      typeCursor.style.opacity = typeCursor.style.opacity === '0' ? '1' : '0';
+    }, 500);
+  }
+
+  function typeWriter() {
+    if (isTypingText1) {
+      if (i < text1.length) {
+        typeText1.textContent += text1.charAt(i);
+        i++;
+        setTimeout(typeWriter, Math.random() * 30 + 40); // 40-70ms per char
+      } else {
+        isTypingText1 = false;
+        
+        // Pause briefly, then move cursor to line 2
+        setTimeout(() => {
+          if (typeText2.nextSibling) {
+            typeText2.parentNode.insertBefore(typeCursor, typeText2.nextSibling);
+          } else {
+            typeText2.parentNode.appendChild(typeCursor);
+          }
+          setTimeout(typeWriter, 100);
+        }, 400); // 400ms pause before starting the second line
+      }
+    } else {
+      if (j < text2.length) {
+        typeText2.textContent += text2.charAt(j);
+        j++;
+        setTimeout(typeWriter, Math.random() * 40 + 50); // Little bit slower for emphasis
+      } else {
+        // Typing completely finished -> blink the cursor
+        startBlinking();
+      }
+    }
+  }
+
+  // Start typing after a short delay to sync with page load animation
+  setTimeout(typeWriter, 500);
+}
+
