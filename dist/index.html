@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Re-Cycle 3D | Digital Hub Penanganan Sampah Terpadu</title>
     <meta name="description" content="Re-Cycle: platform edukatif dan partisipatif pengelolaan sampah dengan visual 3D modern, Eco Contribution Ranking, dan peta bank sampah." />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script type="module" crossorigin src="/assets/index-Ctv0c6Kx.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DGsDrTYV.css">
+    <script type="module" crossorigin src="/assets/index-CFd8jx-J.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DU7dJfmT.css">
   </head>
   <body class="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-50 transition-colors duration-300">
     <div class="min-h-screen">
@@ -24,12 +24,21 @@
             <a href="#ranking" class="hover:text-emerald-600 dark:hover:text-emerald-200">Eco Ranking</a>
             <a href="#map" class="hover:text-emerald-600 dark:hover:text-emerald-200">Bank Sampah</a>
           </nav>
-          <a href="#ranking" class="hidden rounded-full bg-emerald-400 px-4 py-1.5 text-xs font-semibold text-slate-950 shadow-card transition-transform hover:-translate-y-0.5 md:inline-flex">
-            Mulai Kontribusi
-          </a>
-          <button id="theme-toggle" type="button" class="ml-3 inline-flex rounded-full border border-slate-300 bg-white/60 px-3 py-1.5 text-xs font-semibold text-slate-800 shadow-sm transition-colors hover:bg-white dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-100">
-            Light
-          </button>
+          <div class="hidden items-center gap-2 md:flex">
+            <button id="theme-toggle" type="button" aria-label="Toggle dark mode" class="relative flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white/70 shadow-sm transition-all duration-300 hover:border-emerald-300 hover:bg-emerald-50 dark:border-slate-700 dark:bg-slate-900/60 dark:hover:border-emerald-600 dark:hover:bg-slate-800">
+              <!-- Sun icon (visible in dark mode) -->
+              <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute text-amber-400 transition-all duration-300 opacity-0 rotate-90 scale-50">
+                <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+              </svg>
+              <!-- Moon icon (visible in dark mode off / light mode) -->
+              <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute text-slate-600 transition-all duration-300 opacity-100 rotate-0 scale-100 dark:text-slate-300">
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+              </svg>
+            </button>
+            <a href="#ranking" class="rounded-full bg-emerald-400 px-4 py-1.5 text-xs font-semibold text-slate-950 shadow-card transition-transform hover:-translate-y-0.5">
+              Mulai Kontribusi
+            </a>
+          </div>
         </div>
       </header>
 
@@ -43,15 +52,17 @@
             <span style="width: 60px; height: 60px; left: 45%; bottom: -25%; animation-duration: 20s;"></span>
           </div>
           <div class="mx-auto flex w-full max-w-6xl flex-col gap-10 px-6 lg:flex-row lg:items-center">
-            <div class="relative z-10 max-w-xl space-y-6">
+            <div id="hero-text" class="relative z-10 max-w-xl space-y-6">
               <p class="animate-on-scroll fade-up inline-flex items-center gap-2 rounded-full border border-emerald-300 bg-emerald-100/60 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-200" style="transition-delay: 100ms;">
                 Re-Cycle
                 <span class="h-1 w-1 rounded-full bg-emerald-600 dark:bg-emerald-300"></span>
                 Digital Hub Lingkungan
               </p>
-              <h1 class="animate-on-scroll fade-up font-display text-3xl leading-tight text-slate-900 dark:text-slate-50 md:text-4xl lg:text-5xl" style="transition-delay: 200ms;">
-                Ubah Jejak Sampahmu Menjadi
-                <span class="bg-gradient-to-r from-emerald-300 via-sky-300 to-emerald-200 bg-clip-text text-transparent">Cerita Baik Bumi</span>
+              <h1 id="hero-title-container" class="animate-on-scroll fade-up font-display text-3xl leading-tight text-slate-900 dark:text-slate-50 md:text-4xl lg:text-5xl min-h-[4em] sm:min-h-[2.5em]" style="transition-delay: 200ms;">
+                <span id="type-text-1"></span>
+                <span class="block mt-1 sm:mt-2"></span>
+                <span id="type-text-2" class="bg-gradient-to-r from-emerald-300 via-sky-300 to-emerald-200 bg-clip-text text-transparent"></span>
+                <span id="type-cursor" class="inline-block w-[3px] h-[0.9em] bg-emerald-400 align-middle ml-1 -translate-y-[0.1em] opacity-100 transition-opacity duration-300"></span>
               </h1>
               <p class="animate-on-scroll fade-up text-sm text-slate-700 dark:text-slate-300 md:text-base" style="transition-delay: 300ms;">
                 Re-Cycle mengubah data, story, dan aksimu menjadi gerakan kolektif pengelolaan sampah terintegrasi, lengkap dengan Eco Contribution Ranking dan peta bank sampah interaktif.
@@ -67,8 +78,8 @@
             </div>
             <div class="relative z-1 h-[450px] flex-1 lg:flex-[2.3] lg:min-w-[600px] animate-on-scroll fade-in" style="transition-delay: 400ms;">
               <div class="absolute inset-0 translate-y-4 bg-gradient-to-b from-emerald-300/20 via-sky-300/15 to-transparent blur-3xl dark:from-sky-500/40 dark:via-emerald-500/35 dark:to-slate-900"></div>
-              <img src="/assets/bumi-BCv0fC5n.png" alt="Ilustrasi Bumi" width="800" height="800" class="relative z-10 mx-auto object-contain" />
-              <div class="pointer-events-none absolute inset-0">
+              <img id="hero-earth" src="/assets/bumi-BCv0fC5n.png" alt="Ilustrasi Bumi" width="800" height="800" class="relative z-10 mx-auto object-contain" />
+              <div id="hero-particles" class="pointer-events-none absolute inset-0">
                 <span class="absolute left-8 top-10 h-6 w-10 rotate-12 rounded-[12px] bg-gradient-to-br from-emerald-300 to-emerald-500 blur-sm"></span>
                 <span class="absolute right-16 top-20 h-4 w-8 -rotate-12 rounded-[10px] bg-gradient-to-br from-green-300 to-emerald-400 blur-sm"></span>
                 <span class="absolute left-1/3 bottom-10 h-3 w-3 rounded-full bg-emerald-300"></span>
@@ -90,7 +101,7 @@
             <div class="grid items-start gap-6 md:grid-cols-12">
               <div class="md:col-span-7">
                 <div class="rounded-3xl overflow-hidden shadow-card relative h-[460px] md:h-[560px] bg-slate-200 dark:bg-slate-800">
-                  <img id="impact-image" src="/assets/laut-PxXLhXq_.png" alt="Pencemaran" class="h-full w-full object-cover transition-opacity duration-300 ease-out opacity-100" />
+                  <img id="impact-image" src="/assets/laut-PxXLhXq_.png" alt="Pencemaran" style="transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); opacity: 1; transform: scale(1);" class="h-full w-full object-cover" />
                 </div>
               </div>
               <div class="md:col-span-5">
@@ -102,7 +113,7 @@
                     Sampah yang kita buang dapat mencemari berbagai elemen alam. Klik untuk melihat dampaknya.
                   </p>
                   <div class="animate-on-scroll fade-up rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-slate-800 dark:border-emerald-500/20 dark:bg-slate-900/60 dark:text-slate-200 transition-all duration-300" style="transition-delay: 200ms;">
-                    <p id="impact-text" class="text-sm">Sampah yang dibuang ke sungai dan laut dapat merusak ekosistem perairan...</p>
+                    <p id="impact-text" class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">Sampah yang dibuang ke sungai dan laut dapat merusak ekosistem perairan serta membahayakan kehidupan makhluk hidup di dalamnya. Plastik yang sulit terurai sering dimakan oleh ikan, penyu, dan hewan laut lainnya sehingga menyebabkan kematian. Selain itu, pencemaran laut juga mengganggu keseimbangan ekosistem dan dapat berdampak pada manusia melalui makanan laut yang telah terkontaminasi. Jika tidak dikendalikan, sampah di laut akan terus menumpuk dan merusak keindahan serta kelestarian alam.</p>
                   </div>
                   <div class="animate-on-scroll fade-up flex flex-wrap items-center gap-2 pt-1" id="impact-tabs" style="transition-delay: 300ms;">
                     <button data-impact="laut" class="impact-tab rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:brightness-110 bg-emerald-400 text-slate-950 shadow-card">Laut</button>
